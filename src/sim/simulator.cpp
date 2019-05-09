@@ -12,12 +12,10 @@ int main() {
 	system.addModule(new ExampleModule("Alice"));
 	system.addModule(new ExampleModule("Bob", 10));
 
-	DirectCache dc0("L1_0");
-	DirectCache dc1("L1_1");
-	std::vector<DirectCache*> dcv = {&dc0, &dc1};
-	system.addModule(&dc0);
-	system.addModule(&dc1);
-	system.addModule(new AssociativeCache("L1", 2, dcv));
+	//Create a direct cache
+	system.addModule(
+		new AssociativeCache(system, "L1", "cpu", "L2", 2, 192000, 64, 2, 0, 0)
+	);
 
 	//Call run() to start the simulation
 	system.run();
